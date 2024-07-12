@@ -19,21 +19,45 @@
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
           <span class="fs-4 px-2 mx-4">Predictor de artritis</span>
         </a>
-<form id="imageForm" enctype="multipart/form-data">
-    <input type="file" id="imageInput" accept="image/*">
-    <button type="button" id="uploadButton" class="btn btn-primary" onclick="uploadImage()">Upload</button>
-</form>
+
 
 <script>
-    function uploadImage() {
+
+
+    function imageChange() {
         const imageInput = document.getElementById('imageInput');
         const file = imageInput.files[0];
         if (!file) return;
 
+        const imagePreview = document.getElementById('imagePreview');
+
+        // Display the uploaded image
+        const imageURL = URL.createObjectURL(file);
+        const imageElement = document.createElement('img');
+        imageElement.src = imageURL;
+        imageElement.style.maxWidth = '100%';
+        imageElement.style.maxHeight = '100%';
+        imagePreview.innerHTML = '';
+        imagePreview.appendChild(imageElement);
+    }
+    
+
+    function uploadImage() {
+
+        const imageInput = document.getElementById('imageInput');
+        const file = imageInput.files[0];
+        if (!file) return;
+
+        document.getElementById('imageForm').style.display = 'none';
+        document.getElementById('uploadButton').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+
+        
+
         const formData = new FormData();
         formData.append('image', file);
 
-        fetch('/upload/', {
+        fetch('/response/', {
             method: 'POST',
             body: formData
         })
@@ -41,8 +65,22 @@
         .then(data => {
             // Handle the response from the server
             console.log(data);
+            
+            document.getElementById('imageForm').style.display = 'block';
+            document.getElementById('uploadButton').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+            const messages = document.getElementById('messages');
+            const userMessage = document.createElement('div');
+            const botMessage = document.createElement('div');
+            botMessage.textContent = data.response;
+            messages.innerHTML = botMessage.innerHTML;
         })
         .catch(error => {
+            document.getElementById('loading').style.display = 'none';
+            const messages = document.getElementById('messages');
+            const userMessage = document.createElement('div');
+            const botMessage = document.createElement('div');
+            botMessage.textContent = error;
             console.error('Error:', error);
         });
     }
@@ -53,20 +91,25 @@
     <div class="px-4 py-1 my-1 text-center">
     <h1 class="display-5 fw-bold">Bienvenido</h1>
     <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Ingresa tu descripción y te daremos el salario y la localización donde debes buscar trabajo:</p>
+        <p class="lead mb-4">Este es un proyecto desarrollado en el marco del samsung innovation campus 2023
+            para predecir el grado de artritis de rodilla de una radiografía subida como imagen.</p>
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label"></label>
-            <textarea class="form-control" id="userInput" rows="3"></textarea>
+            <form id="imageForm" enctype="multipart/form-data">
+                <input type="file" id="imageInput" accept="image/*" onchange="imageChange()">
+                <button type="button" id="uploadButton" class="btn btn-secondary btn-lg px-4 gap-3" onclick="uploadImage()">Enviar</button>
+        
+            </form>
           </div>
-
+        <div id="imagePreview"></div>
         <div id="loading" class="col-lg-6 mx-auto">
             <img src="{% static 'deploy_app/charge.gif' %}" alt="Loading...">
         </div>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" id="sendButton" class="btn btn-secondary btn-lg px-4 gap-3" onclick="sendMessage()">Enviar</button>
         </div>
     </div>
     </div>
+
+    
 
     <div class="px-4 py-5 my-5 text-center">
     <div class="col-sm-6 mx-auto">
@@ -75,41 +118,6 @@
     </div>
     </div>
     
-    
-    <script>
-        function sendMessage() {
-            const userInput = document.getElementById('userInput').value;
-            if (!userInput.trim()) return;
-
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('userInput').style.display = 'none';
-            document.getElementById('sendButton').style.display = 'none';
-
-            fetch('/response/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({message: userInput})
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('userInput').style.display = 'block';
-                document.getElementById('sendButton').style.display = 'block';
-                const messages = document.getElementById('messages');
-                const userMessage = document.createElement('div');
-                const botMessage = document.createElement('div');
-                botMessage.textContent = data.response;
-                messages.appendChild(botMessage);
-            })
-            .catch(error => {
-                document.getElementById('loading').style.display = 'none';
-                console.error('Error:', error);
-            });
-        }
-    </script>
     <div class="container">
         <footer class="py-3 my-4">
           <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -121,6 +129,8 @@
           </ul>
           <p class="text-center text-muted">SIC 2023</p>
         </footer>
+
       </div>
 </body>
 </html>
+
