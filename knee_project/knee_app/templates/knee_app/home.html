@@ -26,6 +26,7 @@
 
     function imageChange() {
         const imageInput = document.getElementById('imageInput');
+        document.getElementById('messages').innerHTML = '';
         const file = imageInput.files[0];
         if (!file) return;
 
@@ -48,9 +49,10 @@
         const file = imageInput.files[0];
         if (!file) return;
 
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('imagePreview').style.display = 'none';
         document.getElementById('imageForm').style.display = 'none';
         document.getElementById('uploadButton').style.display = 'none';
-        document.getElementById('loading').style.display = 'block';
 
         
 
@@ -68,6 +70,7 @@
             
             document.getElementById('imageForm').style.display = 'block';
             document.getElementById('uploadButton').style.display = 'block';
+            document.getElementById('imagePreview').style.display = 'block';
             document.getElementById('loading').style.display = 'none';
             const messages = document.getElementById('messages');
             const userMessage = document.createElement('div');

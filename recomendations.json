@@ -1,0 +1,47 @@
+{
+    "normal": {
+      "recomendations": [
+        "mantén una dieta equilibrada y rica en nutrientes.",
+        "realiza ejercicio regularmente para fortalecer las articulaciones.",
+        "evita actividades que puedan causar lesiones en las rodillas.",
+        "mantén un peso saludable para reducir el estrés en las articulaciones.",
+        "programa chequeos regulares con tu médico para monitorear tu salud articular."
+      ]
+    },
+    "doubtful": {
+      "recomendations": [
+        "consulta a tu médico para un diagnostico más detallado.",
+        "mantén un peso saludable para reducir la presión sobre las articulaciones.",
+        "realiza ejercicios de bajo impacto, como caminar, nadar andar en bicicleta.",
+        "considera la fisioterapia para fortalecer los músculos alrededor de la articulación.",
+        "evita actividades que puedan causar un desgate adicional en tus articulaciones."
+      ]
+    },
+    "mild": {
+      "recomendations": [
+        "consulta a tu médico para discutir las opciones de tratamiento.",
+        "realiza ejercicios de bajo impacto y estiramientos para mantener la flexibilidad y la fuerza en tus rodillas.",
+        "aplica compresas frías o calientes para aliviar el dolor y la inflamación.",
+        "considera el uso de suplementos como glucosamina y condroitina, previa consulta con tu médico.",
+        "mantén un peso saludable para aliviar la presión sobre las articulaciones."
+      ]
+    },
+    "moderate": {
+      "recomendations": [
+        "consulta a tu médico para evaluar tratamientos más específicos.",
+        "podrían recomendarle medicamentos antiinflamatorios o analgésicos para el dolor, previa consulta con tu médico.",
+        "la fisioterapia puede ser útil para mantener la movilidad y fortalecer los músculos.",
+        "mantén un régimen de ejercicio de bajo impacto.",
+        "evita actividades que impliquen una alta carga sobre tus rodillas, como correr o saltar."
+      ]
+    },
+    "severe": {
+      "recomendations": [
+        "es crucial que consultes a tu médico lo antes posible para discutir opciones de tratamiento.",
+        "la fisioterapia y los ejercicios específicos pueden ayudar a mantener la movilidad.",
+        "el tratamiento podría incluir medicamentos más fuertes o inyecciones para aliviar el dolor.",
+        "en algunos casos, puede ser necesario considerar opciones quirúrgicas como la artroplastia.",
+        "mantén un peso saludable para minimizar la presión sobre la articulación afectada."
+      ]
+    }
+  }
